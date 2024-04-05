@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "d08f0dfd-866d-43f2-9bc5-d52ea539fda3",
+		"name": "casinorep",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28362522"
+	},
+	"item": [
+		{
+			"name": "PostClassBody",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"request_type\" : \"auth_user\",\n    \"request_body\" : {\n        \"user_value\" : \"chuy13\",\n        \"user_key\" : \"p3rR1t4T\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/testcuatro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testcuatro"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "chuy",
+							"disabled": true
+						},
+						{
+							"key": "dato_test",
+							"value": "perrita",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostGenericBody",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_value\" : \"chuy13\",\n    \"user_key\" : \"p3rR1t4T\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/testtres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testtres"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "chuy",
+							"disabled": true
+						},
+						{
+							"key": "dato_test",
+							"value": "perrita",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetParams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/testdos?dato_prueba=chuy&dato_test=perrita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testdos"
+					],
+					"query": [
+						{
+							"key": "dato_prueba",
+							"value": "chuy"
+						},
+						{
+							"key": "dato_test",
+							"value": "perrita"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSimple",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_value\" : \"chuy13\",\n    \"user_key\" : \"p3rR1t4T\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/testuno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"testuno"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
