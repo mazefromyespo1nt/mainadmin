@@ -1,5 +1,6 @@
 package com.reporter.pdf.casinorep.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reporter.pdf.casinorep.dto.resources.LogInDTO;
 import com.reporter.pdf.casinorep.dto.resources.RequestDTO;
+import com.reporter.pdf.casinorep.dto.resources.ResponseDTO;
 
 @RestController
 public class TestController {
@@ -38,7 +40,7 @@ public class TestController {
 	}
 	
 	@PostMapping("/testcuatro")
-	String testPostBodySpecific(@RequestBody RequestDTO<LogInDTO> reqBody) {
+	ResponseDTO<Map<String, Object>> testPostBodySpecific(@RequestBody RequestDTO<LogInDTO> reqBody) {
 
 		logger.debug("Post TEST type: {}", reqBody.getRequest_type());
 
@@ -46,7 +48,13 @@ public class TestController {
 
 		logger.debug("Post TEST key: {}", reqBody.getRequest_body().getUser_key());
 
-		return "Hello post!!";
+		Map<String, Object> response_data = new HashMap<String, Object>();
+
+		response_data.put("message", "logged-in"); 
+		response_data.put("token_key", "ndkjdhfadd0q3980q923849q3r"); 
+		//ResponseDTO<Map<String, Object>> responseBody = new ResponseDTO<Map<String, Object>>("O0", "se procesa peticion", response_data);
+		return new ResponseDTO<Map<String, Object>>("O0", "se procesa peticion", response_data);
+
 	}
 	
 }
