@@ -1,0 +1,6 @@
+spring:
+ application:
+  name: 'casinorep'
+logging:
+ level:
+  com.reporter.pdf.casinorep: TRACE
