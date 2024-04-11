@@ -18,12 +18,12 @@ import com.reporter.pdf.casinorep.dto.UsuarioDTO;
 		        String nombreValido = "kurko";
 		        String apellidoValido = "bein";
 		        String correoValido = "kurko@hotmail.com";
-		        String contraseñaValida = "contraseña123";
+		        String contrasenaValida = "contraseña123";
 
 		        if (nombreValido.equals(registroRequest.getNombre()) &&
 		                apellidoValido.equals(registroRequest.getApellido()) &&
 		                correoValido.equals(registroRequest.getCorreo()) &&
-		                contraseñaValida.equals(registroRequest.getContraseña())) {
+		                contrasenaValida.equals(registroRequest.getContraseña())) {
 		            System.out.println("Registro exitoso!");
 		            return ResponseEntity.ok("Usuario registrado correctamente");
 		        } else {
