@@ -1,12 +1,15 @@
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/resources/AuthResDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/PDFReporterDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/resources/RequestDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/CasinorepApplication.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/commons/ResourcesConstants.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/controller/TestController.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/resources/ResponseDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/utils/ReporterDateTimeUtil.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/controller/PdfRestController.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/resources/LogInDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/dto/PDFRequestDTO.java
-/home/asus13/Documents/projects/casinorep/src/main/java/com/reporter/pdf/casinorep/prototype/ReporterPDFPrototype.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\controller\UsuarioController.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\controller\TestController.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\PDFRequestDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\resources\LogInDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\prototype\ReporterPDFPrototype.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\utils\ReporterDateTimeUtil.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\commons\ResourcesConstants.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\controller\PdfRestController.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\CasinorepApplication.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\resources\ResponseDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\resources\RequestDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\RegistroDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\UsuarioDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\PDFReporterDTO.java
+C:\Users\chequ\SPRING\Punto de ventas\repositogym\src\main\java\com\reporter\pdf\casinorep\dto\resources\AuthResDTO.java
