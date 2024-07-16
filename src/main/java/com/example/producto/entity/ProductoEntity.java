@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity
 @Table(name = "productos")
 public class ProductoEntity {
-
+/*Hola*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_product")
