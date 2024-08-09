@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tipo-productos")
 public class TipoProductoController {
-
+//comenta tus cambios
     @Autowired
     private TipoProductoService tipoProductoService;
 
