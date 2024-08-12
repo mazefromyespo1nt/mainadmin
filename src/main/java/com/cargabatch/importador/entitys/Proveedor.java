@@ -1,6 +1,7 @@
 package com.cargabatch.importador.entitys;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
@@ -14,30 +15,41 @@ public class Proveedor {
     private int idProveedor;
 
     @Column(name = "nombre", length = 25, nullable = false)
+    @NotBlank(message = "El nombre del proveedor no puede estar vacío")
+    @Size(max = 25, message = "El nombre del proveedor no puede exceder los 25 caracteres")
     private String nombre;
 
     @Column(name = "descripcion", length = 60)
+    @Size(max = 60, message = "La descripción no puede exceder los 60 caracteres")
     private String descripcion;
 
     @Column(name = "contacto", length = 30)
+    @Size(max = 30, message = "El contacto no puede exceder los 30 caracteres")
     private String contacto;
 
     @Column(name = "telefono_contacto")
+    @Pattern(regexp = "^\\+?\\d*$", message = "El teléfono de contacto debe ser un número válido")
     private String telefonoContacto;
 
     @Column(name = "email_contacto", length = 50)
+    @Email(message = "El email de contacto debe ser una dirección de correo válida")
     private String emailContacto;
 
     @Column(name = "fecha_registro")
+    @Temporal(TemporalType.TIMESTAMP)
+    @PastOrPresent(message = "La fecha de registro no puede estar en el futuro")
     private Date fechaRegistro;
 
     @Column(name = "fecha_modificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    @PastOrPresent(message = "La fecha de modificación no puede estar en el futuro")
     private Date fechaModificacion;
 
     @Column(name = "status")
     private boolean status = true; // Valor por defecto para nuevos registros
 
     @Column(name = "cantidad_proveedor")
+    @Min(value = 0, message = "La cantidad del proveedor debe ser mayor o igual a 0")
     private int cantidadProveedor = 0;
 
     @ManyToOne
@@ -49,10 +61,18 @@ public class Proveedor {
     private Sucursal sucursal;
 
     @Column(name = "precio_productos")
+    @Min(value = 0, message = "El precio de los productos debe ser mayor o igual a 0")
     private int precioProductos;
 
     @OneToMany(mappedBy = "proveedor")
     private List<Productos> productos;
+
+    // Campo TipoEquipoEntity comentado
+    /*
+    @ManyToOne
+    @JoinColumn(name = "tipo_equipo_id", referencedColumnName = "id_tipo_equipo")
+    private TipoEquipoEntity tipoEquipo;
+    */
 
     // Getters y setters
 
@@ -132,11 +152,11 @@ public class Proveedor {
         return cantidadProveedor;
     }
 
-    public void setCantidadProveedor(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor que 0");
+    public void setCantidadProveedor(int cantidadProveedor) {
+        if (cantidadProveedor < 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor o igual a 0");
         }
-        this.cantidadProveedor = cantidad;
+        this.cantidadProveedor = cantidadProveedor;
     }
 
     public TipoProducto getTipoProducto() {
@@ -147,15 +167,6 @@ public class Proveedor {
         this.tipoProducto = tipoProducto;
     }
 
-    // Comentado porque no está en uso. Descomenta si decides usarlo
-    /* public TipoEquipoEntity getTipoEquipo() {
-        return tipoEquipo;
-    }
-
-    public void setTipoEquipo(TipoEquipoEntity tipoEquipo) {
-        this.tipoEquipo = tipoEquipo;
-    } */
-
     public Sucursal getSucursal() {
         return sucursal;
     }
@@ -164,13 +175,13 @@ public class Proveedor {
         this.sucursal = sucursal;
     }
 
-        public int getPrecioProductos() {
-         return precioProductos;
-     }
+    public int getPrecioProductos() {
+        return precioProductos;
+    }
 
     public void setPrecioProductos(int precioProductos) {
-         this.precioProductos = precioProductos;
-     }
+        this.precioProductos = precioProductos;
+    }
 
     public List<Productos> getProductos() {
         return productos;
@@ -178,5 +189,37 @@ public class Proveedor {
 
     public void setProductos(List<Productos> productos) {
         this.productos = productos;
+    }
+
+    /*
+    public TipoEquipoEntity getTipoEquipo() {
+        return tipoEquipo;
+    }
+
+    public void setTipoEquipo(TipoEquipoEntity tipoEquipo) {
+        this.tipoEquipo = tipoEquipo;
+    }
+    */
+
+    @Override
+    public String toString() {
+        return "Proveedor{" +
+                "idProveedor=" + idProveedor +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", contacto='" + contacto + '\'' +
+                ", telefonoContacto='" + telefonoContacto + '\'' +
+                ", emailContacto='" + emailContacto + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", fechaModificacion=" + fechaModificacion +
+                ", status=" + status +
+                ", cantidadProveedor=" + cantidadProveedor +
+                ", tipoProducto=" + (tipoProducto != null ? tipoProducto.getIdTipoProducto() : null) +
+                ", sucursal=" + (sucursal != null ? sucursal.getIdSucursal() : null) +
+                ", precioProductos=" + precioProductos +
+                /*
+                ", tipoEquipo=" + (tipoEquipo != null ? tipoEquipo.getIdTipoEquipo() : null) +
+                */
+                '}';
     }
 }

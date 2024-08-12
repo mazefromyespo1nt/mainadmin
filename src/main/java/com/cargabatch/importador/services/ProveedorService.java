@@ -8,8 +8,12 @@ import com.cargabatch.importador.repositorys.ProveedorRepository;
 import com.cargabatch.importador.repositorys.TipoProductoRepository;
 import com.cargabatch.importador.repositorys.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +32,7 @@ public class ProveedorService {
 
     private Proveedor dtoToEntity(ProveedorDTO dto) {
         if (dto == null) {
-            throw new IllegalArgumentException("DTO no puede ser nulo");
+            throw new IllegalArgumentException("ProveedorDTO no puede ser nulo");
         }
         Proveedor entity = new Proveedor();
         entity.setIdProveedor(dto.getIdProveedor());
@@ -38,10 +42,10 @@ public class ProveedorService {
         entity.setTelefonoContacto(dto.getTelefonoContacto());
         entity.setEmailContacto(dto.getEmailContacto());
         entity.setFechaRegistro(dto.getFechaRegistro());
-        entity.setFechaModificacion(dto.getFechaModificacion() != null ? dto.getFechaModificacion() : new java.util.Date());
+        entity.setFechaModificacion(dto.getFechaModificacion() != null ? dto.getFechaModificacion() : new Date());
         entity.setCantidadProveedor(dto.getCantidadProveedor());
         entity.setPrecioProductos(dto.getPrecioProductos());
-        entity.setStatus(dto.getStatus()); // Usamos el valor del DTO para status
+        entity.setStatus(dto.isStatus()); // Usamos el valor del DTO para status
 
         // Buscar y establecer tipoProducto y sucursal usando sus ID
         if (dto.getTipoProductoId() != 0) {
@@ -98,6 +102,11 @@ public class ProveedorService {
                 .collect(Collectors.toList());
     }
 
+    public Page<ProveedorDTO> getAllProveedores(Pageable pageable) {
+        Page<Proveedor> proveedoresPage = repository.findAllByStatusTrue(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
+        return proveedoresPage.map(this::entityToDto);
+    }
+
     public ProveedorDTO getProveedorById(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("ID no puede ser nulo");
@@ -134,5 +143,45 @@ public class ProveedorService {
         } else {
             throw new RuntimeException("Proveedor no encontrado con id: " + id);
         }
+    }
+
+    // Método para buscar proveedores por nombre
+    public List<ProveedorDTO> searchProveedoresByName(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
+        }
+        return repository.findByNombreContainingIgnoreCase(nombre).stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    // Método para buscar proveedores activos desde una fecha específica
+    public List<ProveedorDTO> getActiveProveedoresSince(Date fecha) {
+        if (fecha == null) {
+            throw new IllegalArgumentException("La fecha no puede ser nula");
+        }
+        return repository.findActiveProveedoresSince(fecha).stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    // Método para obtener proveedores activos por tipo de producto
+    public List<ProveedorDTO> getProveedoresByTipoProducto(Integer tipoProductoId) {
+        if (tipoProductoId == null) {
+            throw new IllegalArgumentException("El ID del tipo de producto no puede ser nulo");
+        }
+        return repository.findByStatusTrueAndTipoProductoId(tipoProductoId).stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    // Método para obtener proveedores activos por sucursal
+    public List<ProveedorDTO> getProveedoresBySucursal(Integer sucursalId) {
+        if (sucursalId == null) {
+            throw new IllegalArgumentException("El ID de la sucursal no puede ser nulo");
+        }
+        return repository.findByStatusTrueAndSucursalId(sucursalId).stream()
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
     }
 }

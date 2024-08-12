@@ -3,6 +3,7 @@ package com.cargabatch.importador.DTO;
 import java.util.Date;
 
 public class ProveedorDTO {
+
     private int idProveedor;
     private String nombre;
     private String descripcion;
@@ -123,7 +124,22 @@ public class ProveedorDTO {
         this.precioProductos = precioProductos;
     }
 
-    public boolean getStatus() {
-        return status;
+    @Override
+    public String toString() {
+        return "ProveedorDTO{" +
+                "idProveedor=" + idProveedor +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", contacto='" + contacto + '\'' +
+                ", telefonoContacto='" + telefonoContacto + '\'' +
+                ", emailContacto='" + emailContacto + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", fechaModificacion=" + fechaModificacion +
+                ", status=" + status +
+                ", cantidadProveedor=" + cantidadProveedor +
+                ", tipoProductoId=" + tipoProductoId +
+                ", sucursalId=" + sucursalId +
+                ", precioProductos=" + precioProductos +
+                '}';
     }
 }

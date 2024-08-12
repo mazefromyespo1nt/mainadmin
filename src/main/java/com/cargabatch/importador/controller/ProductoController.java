@@ -2,11 +2,16 @@ package com.cargabatch.importador.controller;
 
 import com.cargabatch.importador.DTO.ProductoDTO;
 import com.cargabatch.importador.services.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -32,12 +37,15 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> agregarOActualizarProducto(@RequestBody ProductoDTO productoDTO) {
-        if (productoDTO == null) {
-            return ResponseEntity.badRequest().body("El DTO del producto no puede ser nulo");
+    public ResponseEntity<String> agregarOActualizarProducto(@Valid @RequestBody ProductoDTO productoDTO, @org.jetbrains.annotations.NotNull BindingResult result) {
+        if (result.hasErrors()) {
+            String errorMessages = result.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.joining(", "));
+            return ResponseEntity.badRequest().body("Errores de validación: " + errorMessages);
         }
         ProductoDTO savedProduct = productoService.saveProduct(productoDTO);
-        return ResponseEntity.ok("Producto guardado con éxito con ID: " + savedProduct.getIdProducto());
+        return ResponseEntity.status(HttpStatus.CREATED).body("Producto guardado con éxito con ID: " + savedProduct.getIdProducto());
     }
 
     @DeleteMapping("/{id}")
@@ -46,7 +54,7 @@ public class ProductoController {
             productoService.deleteProduct(id);
             return ResponseEntity.ok("Producto eliminado con éxito");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

@@ -8,5 +8,28 @@ import java.util.List;
 
 @Repository
 public interface ProveedorProductoRepository extends JpaRepository<ProveedorProducto, Integer> {
-    List<ProveedorProducto> findAllByStatus(int status); // 1 for active, 0 for deleted
+
+    /**
+     * Encuentra todos los productos de proveedor por estado.
+     *
+     * @param status El estado del producto (1 para activo, 0 para eliminado)
+     * @return Una lista de productos de proveedor con el estado especificado.
+     */
+    List<ProveedorProducto> findAllByStatus(int status);
+
+    /**
+     * Encuentra todos los productos de proveedor por proveedor.
+     *
+     * @param proveedorId El ID del proveedor.
+     * @return Una lista de productos de proveedor asociados con el ID del proveedor.
+     */
+    List<ProveedorProducto> findAllByProveedorId(int proveedorId);
+
+    /**
+     * Encuentra todos los productos de proveedor por tipo de producto.
+     *
+     * @param tipoProductoId El ID del tipo de producto.
+     * @return Una lista de productos de proveedor asociados con el ID del tipo de producto.
+     */
+    List<ProveedorProducto> findAllByTipoProductoId(int tipoProductoId);
 }

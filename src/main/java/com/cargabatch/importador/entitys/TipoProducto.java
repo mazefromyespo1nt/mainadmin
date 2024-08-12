@@ -1,6 +1,7 @@
 package com.cargabatch.importador.entitys;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
@@ -14,18 +15,25 @@ public class TipoProducto {
     private int idTipoProducto;
 
     @Column(name = "nombre", length = 25, nullable = false)
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 25, message = "El nombre no puede exceder los 25 caracteres")
     private String nombre;
 
     @Column(name = "descripcion", length = 100)
+    @Size(max = 100, message = "La descripción no puede exceder los 100 caracteres")
     private String descripcion;
 
     @Column(name = "fecha_registro")
+    @PastOrPresent(message = "La fecha de registro no puede estar en el futuro")
     private Date fechaRegistro;
 
     @Column(name = "fecha_modificacion")
+    @PastOrPresent(message = "La fecha de modificación no puede estar en el futuro")
     private Date fechaModificacion;
 
     @Column(name = "status")
+    @Min(value = 0, message = "El status debe ser 0 (inactivo) o 1 (activo)")
+    @Max(value = 1, message = "El status debe ser 0 (inactivo) o 1 (activo)")
     private int status; // 1 for active, 0 for deleted
 
     @OneToMany(mappedBy = "tipoProducto")
@@ -87,5 +95,17 @@ public class TipoProducto {
 
     public void setProductos(List<Productos> productos) {
         this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "TipoProducto{" +
+                "idTipoProducto=" + idTipoProducto +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", fechaModificacion=" + fechaModificacion +
+                ", status=" + status +
+                '}';
     }
 }

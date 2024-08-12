@@ -17,9 +17,15 @@ public class ProveedorProductoController {
     private ProveedorProductoService proveedorProductoService;
 
     @PostMapping
-    public ResponseEntity<ProveedorProductoDTO> createProveedorProducto(@RequestBody ProveedorProductoDTO proveedorProductoDTO) {
-        ProveedorProductoDTO savedProveedorProducto = proveedorProductoService.saveProveedorProducto(proveedorProductoDTO);
-        return new ResponseEntity<>(savedProveedorProducto, HttpStatus.CREATED);
+    public ResponseEntity<ProveedorProductoDTO> createOrUpdateProveedorProducto(@RequestBody ProveedorProductoDTO proveedorProductoDTO) {
+        try {
+            ProveedorProductoDTO savedProveedorProducto = proveedorProductoService.saveProveedorProducto(proveedorProductoDTO);
+            return new ResponseEntity<>(savedProveedorProducto, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping
@@ -33,16 +39,6 @@ public class ProveedorProductoController {
         ProveedorProductoDTO proveedorProducto = proveedorProductoService.getProveedorProductoById(id);
         return proveedorProducto != null ? new ResponseEntity<>(proveedorProducto, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProveedorProductoDTO> updateProveedorProducto(@PathVariable int id, @RequestBody ProveedorProductoDTO proveedorProductoDTO) {
-        try {
-            ProveedorProductoDTO updatedProveedorProducto = proveedorProductoService.updateProveedorProducto(id, proveedorProductoDTO);
-            return new ResponseEntity<>(updatedProveedorProducto, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}")

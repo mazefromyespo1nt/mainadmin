@@ -80,7 +80,17 @@ public class ProveedorProductoService {
             throw new IllegalArgumentException("ProveedorProductoDTO no puede ser nulo");
         }
         ProveedorProducto entity = dtoToEntity(proveedorProductoDTO);
-        entity.setStatus(1); // Marcar como activo por defecto
+        // Verificar si el registro existe
+        if (entity.getIdProveedorProducto() > 0 && repository.existsById(entity.getIdProveedorProducto())) {
+            // Actualizar el registro existente
+            ProveedorProducto existingEntity = repository.findById(entity.getIdProveedorProducto()).orElseThrow(
+                    () -> new RuntimeException("ProveedorProducto no encontrado con id: " + entity.getIdProveedorProducto())
+            );
+            entity.setFechaRegistro(existingEntity.getFechaRegistro()); // Mantener la fecha de registro original
+        } else {
+            // Marcar como activo por defecto al crear un nuevo registro
+            entity.setStatus(1);
+        }
         ProveedorProducto savedEntity = repository.save(entity);
         return entityToDto(savedEntity);
     }
@@ -99,20 +109,6 @@ public class ProveedorProductoService {
         return optionalEntity.filter(entity -> entity.getStatus() == 1) // Filtrar por estado activo
                 .map(this::entityToDto)
                 .orElse(null);
-    }
-
-    public ProveedorProductoDTO updateProveedorProducto(Integer id, ProveedorProductoDTO proveedorProductoDTO) {
-        if (id == null || proveedorProductoDTO == null) {
-            throw new IllegalArgumentException("ID y ProveedorProductoDTO no pueden ser nulos");
-        }
-        if (repository.existsById(id)) {
-            ProveedorProducto entity = dtoToEntity(proveedorProductoDTO);
-            entity.setIdProveedorProducto(id); // Asegúrate de que el ID no cambie
-            ProveedorProducto updatedEntity = repository.save(entity);
-            return entityToDto(updatedEntity);
-        } else {
-            throw new RuntimeException("ProveedorProducto no encontrado con id: " + id);
-        }
     }
 
     public void deleteProveedorProducto(Integer id) {

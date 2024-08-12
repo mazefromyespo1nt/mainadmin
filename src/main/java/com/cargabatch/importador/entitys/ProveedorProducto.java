@@ -1,6 +1,9 @@
 package com.cargabatch.importador.entitys;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,29 +16,33 @@ public class ProveedorProducto {
     private int idProveedorProducto;
 
     @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", nullable = false)
     private Proveedor proveedor;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_producto", referencedColumnName = "id_tipo_producto")
+    @JoinColumn(name = "id_tipo_producto", referencedColumnName = "id_tipo_producto", nullable = false)
     private TipoProducto tipoProducto;
 
-    @Column(name = "nombre", length = 25)
+    @Column(name = "nombre", length = 25, nullable = false)
+    @NotBlank(message = "El nombre no puede estar vacío")
     private String nombre;
 
     @Column(name = "descripcion", length = 60)
     private String descripcion;
 
-    @Column(name = "fecha_registro")
+    @Column(name = "fecha_registro", nullable = false)
+    @NotNull(message = "La fecha de registro no puede ser nula")
     private Date fechaRegistro;
 
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
 
     @Column(name = "cantidad_producto_id")
+    @Min(value = 0, message = "La cantidad del producto debe ser al menos 0")
     private int cantidadProductoId;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
+    @Min(value = 0, message = "El estado debe ser 0 o 1")
     private int status; // 1 for active, 0 for deleted
 
     // Getters y Setters
@@ -109,6 +116,24 @@ public class ProveedorProducto {
     }
 
     public void setStatus(int status) {
+        if (status < 0 || status > 1) {
+            throw new IllegalArgumentException("El estado debe ser 0 o 1");
+        }
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "ProveedorProducto{" +
+                "idProveedorProducto=" + idProveedorProducto +
+                ", proveedor=" + (proveedor != null ? proveedor.getIdProveedor() : "null") +
+                ", tipoProducto=" + (tipoProducto != null ? tipoProducto.getIdTipoProducto() : "null") +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", fechaModificacion=" + fechaModificacion +
+                ", cantidadProductoId=" + cantidadProductoId +
+                ", status=" + status +
+                '}';
     }
 }
