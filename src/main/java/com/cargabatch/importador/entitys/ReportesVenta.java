@@ -16,25 +16,25 @@ public class ReportesVenta {
     private LocalDateTime fecha;
 
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private Float cantidad;
 
     @Column(name = "precio_venta")
     private Float precioVenta;
 
+    @ManyToOne
+    @JoinColumn(name = "producto_id", referencedColumnName = "id_producto")
+    private Producto producto;  // Aquí está la relación con Producto
+
+    @Column(name = "total")
+    private Float total;
 //    @ManyToOne
 //    @JoinColumn(name = "roles_id", referencedColumnName = "id_roles")
 //    private CatalogoRoles roles;
-
-    @ManyToOne
-    @JoinColumn(name = "producto_id", referencedColumnName = "id_producto")
-    private Producto producto;
 
 //    @ManyToOne
 //    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario")
 //    private Usuario usuario;
 
-    @Column(name = "total")
-    private Float total;
 
     // Getters and Setters
     public Integer getIdVenta() {
@@ -53,11 +53,11 @@ public class ReportesVenta {
         this.fecha = fecha;
     }
 
-    public Integer getCantidad() {
+    public Float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Float cantidad) {
         this.cantidad = cantidad;
     }
 

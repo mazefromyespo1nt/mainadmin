@@ -115,7 +115,7 @@ public class ProductoDTO {
     }
 
     public void setStatus(Boolean status) {
-        this.status = status;
+        this.status = true;
     }
 
     public Integer getProveedorId() {

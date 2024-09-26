@@ -43,10 +43,14 @@ public class ProductoService {
         entity.setPrecioVenta(dto.getPrecioVenta());
         entity.setImagenBase64(dto.getImagenBase64());
 
-        if (dto.getFechaRegistro() == null) {
+        // Inicializamos fechaRegistro y status al registrar un nuevo producto
+        if (dto.getIdProducto() == null) {
             entity.setFechaRegistro(LocalDateTime.now());
+            entity.setStatus(true); // 1 representa activo
         }
-        entity.setFechaModificacion(dto.getFechaModificacion() != null ? dto.getFechaModificacion() : LocalDateTime.now());
+
+        // Si no se proporciona fechaModificacion, se actualiza automáticamente
+        entity.setFechaModificacion(LocalDateTime.now());
 
         if (dto.getProveedorId() != null) {
             Proveedor proveedor = proveedorRepository.findById(dto.getProveedorId())
@@ -90,11 +94,14 @@ public class ProductoService {
             throw new IllegalArgumentException("ProductoDTO no puede ser nulo");
         }
 
-        List<Producto> productosExistentes = repository.findByNombreAndStatusTrue(productoDTO.getNombre());
+        // Buscar si existe un producto activo con el mismo nombre o código de barras
+        List<Producto> productosExistentes = repository.findByCodigoAndStatusTrue(productoDTO.getCodigo());
 
         if (!productosExistentes.isEmpty()) {
             Producto productoExistente = productosExistentes.get(0);
+            // Actualizar la cantidad total y la fecha de modificación
             productoExistente.setCantidadTotal(productoExistente.getCantidadTotal() + productoDTO.getCantidadTotal());
+            productoExistente.setFechaModificacion(LocalDateTime.now());
             Producto updatedEntity = repository.save(productoExistente);
             return entityToDto(updatedEntity);
         } else {
@@ -148,7 +155,7 @@ public class ProductoService {
         Optional<Producto> optionalEntity = repository.findByIdProductoAndStatusTrue(id);
         if (optionalEntity.isPresent()) {
             Producto entity = optionalEntity.get();
-            entity.setStatus(false);
+            entity.setStatus(false); // 0 representa inactivo
             repository.save(entity);
             return true;
         } else {

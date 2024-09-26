@@ -13,26 +13,31 @@ public class ReportesVentaDTO {
     @NotNull(message = "La fecha no puede ser nula")
     private LocalDateTime fecha;
 
+    @NotNull(message = "El producto no puede ser nulo")
+    private Integer producto;  // Aquí usas el ID del producto
+
     @Min(value = 1, message = "La cantidad debe ser al menos 1")
-    private Integer cantidad;
+    private Float cantidad;
 
     @Positive(message = "El precio de venta debe ser positivo")
     private Float precioVenta;
 
-    @NotNull(message = "El rol no puede ser nulo")
-    private Integer rolesId;
-
-    @NotNull(message = "El producto no puede ser nulo")
-    private Integer productoId;
-
-    @NotNull(message = "El usuario no puede ser nulo")
-    private Integer usuarioId;
-
     @Positive(message = "El total debe ser positivo")
     private Float total;
 
-    // Getters and Setters
+    // Constructor vacío
+    public ReportesVentaDTO() {}
 
+    // Constructor con parámetros
+    public ReportesVentaDTO(LocalDateTime fecha, Float cantidad, Float precioVenta, Float total, Integer producto) {
+        this.fecha = fecha;
+        this.cantidad = cantidad;
+        this.precioVenta = precioVenta;
+        this.total = total;
+        this.producto = producto;  // Pasamos el ID del producto
+    }
+
+    // Getters y Setters
     public Integer getIdVenta() {
         return idVenta;
     }
@@ -41,59 +46,43 @@ public class ReportesVentaDTO {
         this.idVenta = idVenta;
     }
 
-    public @NotNull(message = "La fecha no puede ser nula") LocalDateTime getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(@NotNull(message = "La fecha no puede ser nula") LocalDateTime fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
-    public @Min(value = 1, message = "La cantidad debe ser al menos 1") Integer getCantidad() {
+    public Float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(@Min(value = 1, message = "La cantidad debe ser al menos 1") Integer cantidad) {
+    public void setCantidad(Float cantidad) {
         this.cantidad = cantidad;
     }
 
-    public @Positive(message = "El precio de venta debe ser positivo") Float getPrecioVenta() {
+    public Float getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(@Positive(message = "El precio de venta debe ser positivo") Float precioVenta) {
+    public void setPrecioVenta(Float precioVenta) {
         this.precioVenta = precioVenta;
     }
 
-    public @NotNull(message = "El rol no puede ser nulo") Integer getRolesId() {
-        return rolesId;
+    public Integer getProducto() {
+        return producto;
     }
 
-    public void setRolesId(@NotNull(message = "El rol no puede ser nulo") Integer rolesId) {
-        this.rolesId = rolesId;
+    public void setProducto(Integer producto) {
+        this.producto = producto;
     }
 
-    public @NotNull(message = "El producto no puede ser nulo") Integer getProductoId() {
-        return productoId;
-    }
-
-    public void setProductoId(@NotNull(message = "El producto no puede ser nulo") Integer productoId) {
-        this.productoId = productoId;
-    }
-
-    public @NotNull(message = "El usuario no puede ser nulo") Integer getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(@NotNull(message = "El usuario no puede ser nulo") Integer usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public @Positive(message = "El total debe ser positivo") Float getTotal() {
+    public Float getTotal() {
         return total;
     }
 
-    public void setTotal(@Positive(message = "El total debe ser positivo") Float total) {
+    public void setTotal(Float total) {
         this.total = total;
     }
 }

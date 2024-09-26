@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api")
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -21,19 +21,19 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/productos")
     public ResponseEntity<ProductoDTO> addProduct(@RequestBody ProductoDTO productoDTO) {
         ProductoDTO createdProduct = productoService.saveProduct(productoDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<ProductoDTO> updateProduct(@PathVariable Integer id, @RequestBody ProductoDTO productoDTO) {
         ProductoDTO updatedProduct = productoService.updateProduct(id, productoDTO);
         return updatedProduct != null ? new ResponseEntity<>(updatedProduct, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
+    @GetMapping("/productos")
     public ResponseEntity<List<ProductoDTO>> getAllProducts() {
         List<ProductoDTO> productos = productoService.getAllProducts();
         return new ResponseEntity<>(productos, HttpStatus.OK);

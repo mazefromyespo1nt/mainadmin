@@ -4,7 +4,13 @@ import com.cargabatch.importador.entitys.ReportesVenta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 public interface ReportesVentaRepository extends JpaRepository<ReportesVenta, Integer> {
-    // Métodos de consulta personalizados, si es necesario
+    // Método para obtener reportes de ventas dentro de un rango de fechas
+    List<ReportesVenta> findByFechaBetween(LocalDateTime startDate, LocalDateTime endDate);
+
 }
