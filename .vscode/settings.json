@@ -1,0 +1,12 @@
+{
+    "workbench.colorTheme": "Kimetsu No Yaiba Theme",
+    "workbench.iconTheme": "bearded-icons",
+    "backgroundCover.imagePath": "/home/cheke/Descargas/Astro.png",
+    "workbench.productIconTheme": "bongocat",
+    "vscode_custom_css.imports": ["file:///home/cheke/Escritorio/visual/custom.css"],
+    "editor.codeActionsOnSave": {
+        
+        
+    }
+}
+
